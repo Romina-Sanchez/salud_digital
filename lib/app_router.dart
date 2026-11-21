@@ -15,14 +15,16 @@ class AppRouter {
     required this.sesion,
     required this.refresh,
     required this.resultadoFirebase,
+    this.initialLocation = '/',
   });
 
   final SesionBloc sesion;
   final Listenable refresh;
   final ResultadoFirebase resultadoFirebase;
+  final String initialLocation;
 
   late final GoRouter router = GoRouter(
-    initialLocation: '/',
+    initialLocation: initialLocation,
     refreshListenable: refresh,
     redirect: _redirigir,
     routes: [
@@ -65,6 +67,11 @@ class AppRouter {
     // Sin sesión: solo se permite el acceso.
     if (!autenticado) {
       return ubicacion == '/acceso' ? null : '/acceso';
+    }
+
+    // Si la ruta no existe y el usuario está autenticado, mostrar errorBuilder.
+    if (state.error != null) {
+      return null;
     }
 
     // Con sesión: el splash y el acceso llevan a la agenda.

@@ -27,12 +27,14 @@ class AppSalud extends StatefulWidget {
     this.authRepository,
     this.citasRepository,
     this.medicamentosRepository,
+    this.rutaInicial = '/',
   });
 
   final ResultadoFirebase resultadoFirebase;
   final AuthRepository? authRepository;
   final CitasRepository? citasRepository;
   final MedicamentosRepository? medicamentosRepository;
+  final String rutaInicial;
 
   @override
   State<AppSalud> createState() => _AppSaludState();
@@ -64,6 +66,7 @@ class _AppSaludState extends State<AppSalud> {
       sesion: _sesionBloc,
       refresh: _refresh,
       resultadoFirebase: widget.resultadoFirebase,
+      initialLocation: widget.rutaInicial,
     );
   }
 
