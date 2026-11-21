@@ -5,25 +5,24 @@ Aplicación Android en Flutter para la Unidad III de **Desarrollo de Software II
 «Salud Digital del Adulto Mayor»: agenda de citas, recordatorios de medicamentos y
 perfil, organizada con BLoC, repositorios y una estructura por funcionalidad.
 
-> **Estado:** base S1 con el avance de autenticación S2: Firebase Authentication
-> para registro, inicio, cierre y restauración de sesión. Las rutas protegidas,
-> Firestore, las notificaciones y la IA se incorporan en las sesiones posteriores.
+> **Estado:** Guía 09 (Sesión S3) completada: autenticación con Firebase Auth,
+> navegación declarativa protegida con GoRouter, tema Material 3 accesible
+> (claro, oscuro y alto contraste) y splash nativo de Android 12+.
 
 ---
 
 ## 1. Qué incluye
 
-- Proyecto Flutter para Android con paquete `pe.edu.uandina.salud_digital`.
-- Arquitectura en tres capas y organización **feature-first**.
-- Módulos `citas` y `medicamentos` completos sobre repositorios en memoria.
-- Módulo `auth` con contrato de repositorio, repositorio Firebase y modo en memoria
-  para desarrollo sin Firebase; el `SesionBloc` observa los cambios de sesión.
-- Tema Material 3 con criterios de accesibilidad (texto base 18, objetivos de
-  48 × 48, etiquetas semánticas y mensajes de error claros).
-- Inicialización tolerante de Firebase: con Firebase inicializado se usa Firebase
-  Authentication; si no está disponible, la app abre sin sesión y muestra un aviso.
-- Pruebas de bloques, repositorios y una prueba de widget.
-- Documentación: este README, un ADR y los Checkpoints S1 y S2.
+- Navegación declarativa con **GoRouter** (`AppRouter` y `RouterRefresh`): rutas
+  públicas (`/`, `/acceso`) y protegidas (`/citas`, `/medicamentos`, `/perfil`)
+  mediante `redirect` centralizado y cierre de sesión reactivo.
+- Tema **Material 3** con `ColorScheme.fromSeed` en cuatro variantes (claro,
+  oscuro, alto contraste claro y alto contraste oscuro con `contrastLevel: 1.0`),
+  tipografía base de 18 sp, objetivos táctiles de 48 × 48 px y soporte para
+  escalado de texto al 200% y TalkBack.
+- **Splash Screen nativo de Android 12+** configurado en `styles.xml` y
+  `colors.xml`, complementado con `SplashPage` en la ruta `/` mientras se
+  verifica la sesión.
 
 ## 2. Requisitos
 
@@ -90,6 +89,8 @@ demostrar la interfaz y no crea cuentas persistentes.
 lib/
 ├── main.dart                     # Arranque: Firebase y runApp
 ├── app.dart                      # Providers, tema y flujo de sesión
+├── app_router.dart               # Rutas declarativas, ShellRoute y redirect
+├── router_refresh.dart           # Puente ChangeNotifier entre SesionBloc y GoRouter
 ├── firebase_bootstrap.dart       # Inicialización tolerante de Firebase
 ├── home_shell.dart               # Navegación principal (Citas, Medicamentos, Perfil)
 ├── core/
@@ -130,6 +131,9 @@ recibe el repositorio por constructor y nunca lo instancia.
 - **Feature-first**: cada funcionalidad agrupa `domain`, `data` y `presentation`.
 - **Material 3** y accesibilidad desde el primer commit.
 - **Firebase opcional en desarrollo**: la app no depende de la nube para arrancar.
+- **GoRouter con `redirect` y `refreshListenable`**: centraliza la protección de
+  rutas y evita navegar manualmente en el logout (detalle en
+  `docs/adr/0003-navegacion-y-tema.md`).
 
 El detalle está en [`docs/adr/0001-arquitectura-bloc-firebase.md`](docs/adr/0001-arquitectura-bloc-firebase.md).
 
@@ -161,6 +165,7 @@ Cobertura actual de la base:
 | `validadores_test.dart` | Validación de correo, contraseña y confirmación |
 | `login_page_test.dart` | Mensajes de validación y alternancia registro/acceso |
 | `widget_test.dart` | La app abre en la agenda de citas |
+| `router_y_accesibilidad_test.dart` | Protección de rutas, redirect en logout, error 404, contraste y texto al 200% |
 
 ## 7. Ruta de la unidad
 
@@ -186,10 +191,9 @@ Cobertura actual de la base:
 
 ## 9. Uso de asistentes de IA
 
-- Herramienta: la indicada por el equipo.
-- Uso: explicación de conceptos, revisión de borradores y generación de pruebas.
-- Verificación: cada fragmento se ejecutó con `flutter analyze` y `flutter test`, y
-  el equipo puede explicarlo.
+- Herramienta: OpenAI Codex.
+- Uso: configuración, implementación de `AppRouter` con `GoRouter` (`redirect` y `refreshListenable`) y pruebas de accesibilidad.
+- Verificación: cada fragmento se ejecutó con `flutter analyze` y `flutter test`, y el equipo comprende y puede explicar su funcionamiento.
 - Datos compartidos: ninguno. No se enviaron datos personales ni de salud.
 
 ## 10. Créditos
