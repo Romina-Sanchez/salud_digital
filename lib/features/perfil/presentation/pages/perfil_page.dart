@@ -101,7 +101,7 @@ class PerfilPage extends StatelessWidget {
                     resultadoFirebase.detalle == null
                         ? resultadoFirebase.mensaje
                         : '${resultadoFirebase.mensaje}\n'
-                            '${resultadoFirebase.detalle}',
+                              '${resultadoFirebase.detalle}',
                   ),
                   isThreeLine: resultadoFirebase.detalle != null,
                 ),
@@ -122,7 +122,7 @@ class PerfilPage extends StatelessWidget {
                         'Salud Digital del Adulto Mayor\n'
                         'Proyecto RSU · SIS048 · Unidad III\n'
                         'Universidad Andina del Cusco\n'
-                        'Versión 0.1.0 (base S1)',
+                        'Versión 0.3.0 (Guía 09 · S3)',
                         style: tema.textTheme.bodyMedium,
                       ),
                     ],

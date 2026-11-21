@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747100403445",
+    "project_id": "appflutter-f037b",
+    "storage_bucket": "appflutter-f037b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747100403445:android:46811d5387ef953d72b7bc",
+        "android_client_info": {
+          "package_name": "pe.edu.uandina.salud_digital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDky8gCFP8ZiASa1jpL23d8hAp8LnOw2X4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
